@@ -16,3 +16,4 @@ node_modules/
 .claude/settings*.json
 # 教师专用（埋点答案），不公开
 book/素材/任务材料包-教师说明.md
+dist/

@@ -15,7 +15,7 @@ ch = open(files[0], encoding="utf-8").read()
 rep = open(f".scratch/fde-textbook/runs/ch{n:02d}.report.md", encoding="utf-8").read()
 
 want = ["## 本章学习目标", f"## {n}.1 先弄明白", f"## {n}.2 看例子", f"## {n}.3 跟着练",
-        f"## {n}.4 自己做", f"## {n}.5 本周实训", "## 本章小结", "## 参考文献"]
+        f"## {n}.4 自己做", f"## {n}.5 本周实训", "## 本章小结"]
 got = [l.strip() for l in ch.splitlines() if l.startswith("## ")]
 if got != want:
     bad.append(f"二级标题应为 {want}，实际 {got}")
@@ -31,7 +31,7 @@ for name, text, k in (("看例子", ex, 2), ("跟着练", guide, 2), ("自己做
     if len(ids(text)) != k:
         bad.append(f"{name} 应有 {k} 题，题号标题找到 {ids(text)}")
 for name, text in (("看例子", ex), ("跟着练", guide)):
-    v = len(re.findall(r"✅ 已验证|⚠️ 需作者确认", text))
+    v = len(re.findall(r"\*\*验证\*\*：", text))
     if v < 2:
         bad.append(f"{name} 的验证状态行少于 2 条（找到 {v}）")
 for word in ("参考答案", "解题路径", "参考要点", "✅ 已验证"):
@@ -45,10 +45,13 @@ for img in re.findall(r"\]\((图/[^)]+)\)", ch):
     if not glob.glob("book/" + img):
         bad.append(f"图片文件不存在：{img}")
 
-cited = set(re.findall(r"\[(\d+)\]", ch.split("## 参考文献")[0]))
-listed = set(re.findall(r"(?m)^\[(\d+)\]", ch.split("## 参考文献")[-1]))
-if cited != listed:
-    bad.append(f"正文引用编号 {sorted(cited, key=int)} 与参考文献条目 {sorted(listed, key=int)} 不一致")
+if re.search(r"\[\d+\]", ch):
+    bad.append("正文里还有引用编号 [n]；引用统一放在 book/参考文献.md（ADR-0006）")
+if "⚠️" in ch:
+    bad.append("章内还有 ⚠️ 标记")
+title = ch.splitlines()[0].lstrip("# ").strip()
+if f"## {title}\n" not in open("book/参考文献.md", encoding="utf-8").read():
+    bad.append("book/参考文献.md 里没有本章的小节")
 if re.search(r"\bS\d{3}\b|references/web", ch):
     bad.append("章内出现来源编号 S### 或本地快照路径")
 if re.search(r"\b[XRDVAC]\d{1,2}\b", ch):
