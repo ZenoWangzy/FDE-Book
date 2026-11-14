@@ -1,0 +1,18 @@
+# 第三方资料快照：各有各的许可，不随本仓库再分发（清单和许可见 references/README.md）
+references/*
+!references/README.md
+# 写作过程日志、内部调研、贯穿案例的真实项目资料：不公开
+.scratch/
+research/
+docs/贯穿案例*.md
+docs/目录.md
+# 工具依赖
+tools/plugins/
+node_modules/
+.codex/
+.aws/
+.agents/
+.claude/scheduled_tasks.lock
+.claude/settings*.json
+# 教师专用（埋点答案），不公开
+book/素材/任务材料包-教师说明.md
