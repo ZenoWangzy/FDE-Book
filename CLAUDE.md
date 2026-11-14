@@ -22,7 +22,7 @@ A Chinese-language textbook on FDE (Forward Deployed Engineer, especially enterp
 
 - The book's core is FDE: every chapter, objective, example and lab is framed as FDE work. Agent topics (prompts, context, tool permissions, human confirmation, testing) are taught as skills an FDE needs, never as a generic agent course. (Author 2026-11-13: 「核心是FDE，所以所有的内容都围绕FDE，就算是智能体相关的，也是FDE所需要的技能」.)
 - The reader is an 18-year-old studying alone: every chapter must be learnable without a teacher. (Author 2026-11-14: 「核心目标是让学生自己看都能自学会的一本教材」.)
-- Every borrowed idea, case, figure, framework or chapter structure is listed in the chapter-end references and in `book/附录B-借鉴说明.md`; in-text markers may be kept light (ADR-0006). The author requires the book to show clearly what was borrowed.
+- Every borrowed idea, case, figure, framework or chapter structure is declared at the end of the book only: `book/参考文献.md` (entries by chapter, GB/T 7714—2015) and `book/附录B-借鉴说明.md`. No `[n]` marks and no 「⚠️ 需作者确认」 marks in chapter text (ADR-0006, author 2026-11-14).
 - This repo is public. Never commit third-party snapshots, run logs, the real project's case files, customer names or the teacher-only key (see `.gitignore`).
 - Lab platform is DeepSeek Harness via the author's product VectA; the running case is the author's real VectA fruit supply-chain project (`docs/adr/0002-*`). Before recommending any tool or platform, check that it is still maintained and in use, and prefer the author's own products. Dify and Coze were proposed once and rejected as dead.
 - Respect each source's license as listed in `references/README.md`. No large verbatim copying from the XDash book.
